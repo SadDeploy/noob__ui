@@ -9,6 +9,7 @@ Prerequisites:
 * [Bower](http://bower.io/) 
 
 Installation process:
+
 1. Clone this repository
 2. Run ```npm install``` to install dependencies
 3. Run ```bower install``` to install front-end dependencies
@@ -27,6 +28,7 @@ gulp build [--force]
 
 ## Structure
 Scss folder
+
 1. base/ — global styles (type, reset etc...)
 2. components/ — styles for components (nav, paginator, breadcrumbs etc...)
 3. layout/ — main components for project (header, footer)
