@@ -1,9 +1,6 @@
 'use strict';
 
 var gulp = require('gulp-help')(require('gulp'));
-var runSequence = require('run-sequence');
-var size = require('gulp-size');
-var notifier = require('gulp-notify/node_modules/node-notifier');
 var uncss = require('gulp-uncss');
 
 var config = require('./../config.js');
@@ -15,5 +12,5 @@ gulp.task('uncss', false, function () {
     .pipe(uncss({
             html: ['dist/*.html']
     }))
-    .pipe(gulp.dest('dist/styles/pure'));
+    .pipe(gulp.dest('dist/styles/purecss'));
 });

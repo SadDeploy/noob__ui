@@ -2,6 +2,13 @@
 var path = require('path');
 var modRewrite = require('connect-modrewrite');
 
+// Default settings
+module.exports.uglifyJs = process.env.UGLIFYJS || false; // to remove .min sufix edit template manually
+module.exports.minifyCss = process.env.MINIFYCSS || false; // to remove .min sufix edit template manually
+module.exports.cacheBust = process.env.CACHEBUST || false;
+module.exports.optimizeImages = process.env.OPTIMIZEIMAGES || true;
+module.exports.lintJs = process.env.LINTJS || false;
+
 // Default paths
 var app = 'app';
 var tmp = '.tmp';
@@ -11,6 +18,7 @@ var bowerDir = 'bower_components';
 // Default paths in app folder
 var data = 'data';
 var fonts = 'fonts';
+var icons = 'icons';
 var images = 'images';
 var scripts = 'scripts';
 var styles = 'styles';
@@ -24,16 +32,9 @@ var rewriteRules = [
   '^/$ - [L]', // default site root handling (index.html)
   '.html$ - [L]', // ignore routes ends with '.html'
   '(.*)/$ $1/index.html [L]', // routes with trailing slash are directories -> rewrite to directory index.html
-  '\\/\[a-zA-Z0-9_\\-.]+\\.\[a-zA-Z0-9]+$ - [L]', // ignore files with extension (eg. .css, .js, ...)
+  '\\/\[a-zA-Z0-9_\\-\@.]+\\.\[a-zA-Z0-9]+$ - [L]', // ignore files with extension (eg. .css, .js, ...)
   '(.*)$ $1.html [L]' // redirect routes ends with string without trailing slash to original html
 ];
-
-// Default settings
-module.exports.uglifyJs = false; // to remove .min sufix edit template manually
-module.exports.minifyCss = false; // to remove .min sufix edit template manually
-module.exports.cacheBust = true;
-module.exports.optimizeImages = true;
-module.exports.lintJs = false;
 
 // Browser sync task config
 module.exports.browserSync = {
@@ -68,22 +69,22 @@ module.exports.browserSync = {
 module.exports.buildSize = {
   srcAll: dist + '/**/*',
   cfgAll: {
-    title: 'build',
+    title: 'build', 
     gzip: true
   },
   srcCss: path.join(dist, styles, '/**/*'),
   cfgCss: {
-    title: 'CSS',
+    title: 'CSS', 
     gzip: true
   },
   srcJs: path.join(dist, scripts, '/**/*'),
   cfgJs: {
-    title: 'JS',
+    title: 'JS', 
     gzip: true
   },
   srcImages: path.join(dist, images, '/**/*'),
   cfgImages: {
-    title: 'Images',
+    title: 'Images', 
     gzip: false
   }
 };
@@ -96,6 +97,12 @@ module.exports.clean = [tmp, dist];
 module.exports.copyFonts = {
   src: path.join(app, fonts, '**/*'),
   dest: dist + '/fonts'
+};
+
+// Copy fonts task config
+module.exports.copyIcons = {
+  src: path.join(app, icons, '**/*'),
+  dest: dist + '/icons'
 };
 
 // Copy extras task config
@@ -130,7 +137,8 @@ module.exports.deploy = {
 
 // Images task config
 module.exports.images = {
-  src: path.join(app, images, '**/*'),
+  src: path.join(app, images, '**/*.{gif,png,jpg}'),
+  srcSVG: path.join(app, images, '**/*.svg'),
   dest: dist + '/images',
   cfg: {
     progressive: true,
@@ -139,54 +147,53 @@ module.exports.images = {
   }
 };
 
-// Jade task config
-module.exports.jade = {
+// JSHint task config
+module.exports.eslint = {
+  src: [
+    path.join(app, scripts,'**/*.js'), 
+    path.join('!' + app, scripts,'plugins/**/*.js') // do not lint external plugins
+  ]
+};
 
+// User scripts task
+module.exports.scripts = {
+  src: path.join(app, scripts, '**/*.js'),
+  dest: path.join(tmp, scripts)
+};
+
+// Styles task config
+module.exports.styles = {
+  src: path.join(app, styles, '*.scss'),
+  dest: path.join(tmp,styles),
+  sassCfg: {}, 
+  autoprefixerCfg: {browsers: ['last 2 version']}
+};
+
+// Templates task config
+module.exports.templates = {
+  
   src: path.join(app, views, '*.jade'),
+  srcBuild: path.join(tmp, 'jade/*.jade'),
   dest: tmp,
+  destBuild: path.join(dist),
   cfg: {
     pretty: true,
     compileDebug: true
   }
 };
 
-// JadeData task config
-module.exports.jadeData = {
+// TemplatesData task config
+module.exports.templatesData = {
   src: path.join(app, views, data, '/**/*.json'),
   dest: app + '/views',
   dataName: 'data.json',
   dataPath: path.join(app, views, 'data.json')
 };
-//
-//// JSHint task config
-//module.exports.jshint = {
-//  src: [
-//    path.join(app, scripts,'**/*.js'),
-//    path.join('!' + app, scripts,'plugins/**/*.js') // do not lint external plugins
-//  ],
-//  reporter: require('jshint-stylish')
-//};
-
-// User scripts task
-module.exports.scripts = {
-  src: [
-    path.join(app, scripts, '*.js'),
-    path.join(app, scripts, 'modules/**/*.js')
-  ],
-  dest: path.join(tmp, scripts)
-};
-
-// Styles task config
-module.exports.styles = {
-  src: path.join(app, styles, 'main.scss'),
-  dest: path.join(tmp,styles),
-  sassCfg: {},
-  autoprefixerCfg: {browsers: ['last 10 version']}
-};
 
 module.exports.useref = {
-  src: tmp + '/**/*.html',
+  src: path.join(app, views, '/**/*.jade'),
   dest: dist,
+  destJade: path.join(tmp, 'jade'),
   assetsCfg: {
     searchPath : app
   },
@@ -197,11 +204,11 @@ module.exports.useref = {
 module.exports.watch = {
   styles: path.join(app, styles, '/**/*.scss'),
   jade: [
-    path.join(app, views, '/**/*.jade'),
+    path.join(app, views, '/**/*.jade'), 
     path.join(app, views, data, '/**/*.json')
   ],
   scripts: path.join(app, scripts, '/**/*.js'),
-  wiredep: 'bower.json'
+  wiredep: 'bower.json' 
 };
 
 // Wiredep task config
@@ -222,5 +229,5 @@ module.exports.wiredep = {
       ignorePath: '../../',
       overides: {}
     }
-  }
+  } 
 }

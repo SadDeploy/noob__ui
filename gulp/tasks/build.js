@@ -4,7 +4,6 @@ var gulp = require('gulp-help')(require('gulp'));
 var runSequence = require('run-sequence');
 var size = require('gulp-size');
 var notifier = require('gulp-notify/node_modules/node-notifier');
-var uncss = require('gulp-uncss');
 
 var config = require('./../config.js');
 var build = require('./../utils/buildHelper.js');
@@ -12,9 +11,6 @@ var build = require('./../utils/buildHelper.js');
 // Output size of dist folder
 gulp.task('buildSize:css', false, function () {
   return gulp.src(config.buildSize.srcCss)
-    .pipe(uncss({
-            html: ['dist/*.html']
-    }))
     .pipe(size(config.buildSize.cfgCss));
 });
 
@@ -41,15 +37,15 @@ gulp.task('build', 'Build project (use with --force to force build)', function(c
   build.setBuild(true);
   runSequence(
     ['wiredep','clean'],
-    ['jade','styles', 'scripts'],
+    ['styles', 'scripts'],
     ['images', 'copy', 'extras'],
-    'useref',
+    'templates',
     'buildSize',
     'uncss',
     function() {
       notifier.notify({
         title: 'Build',
-        message: 'Done'
+        message: 'Build was successful'
       });
       cb();
     }
