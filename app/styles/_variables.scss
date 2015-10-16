@@ -114,7 +114,7 @@ $container-lg:                 $container-desktop;
 // Large screen / wide desktop
 $container-large-desktop:      (1140px + $grid-gutter-width);
 //** For `$screen-lg-min` and up.
-$container-xlg:                 100%;
+$container-xlg:                 $container-large-desktop;
 
 // Btn
 $btn-font-weight:               400;
