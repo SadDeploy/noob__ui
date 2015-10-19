@@ -153,26 +153,6 @@
   }
 }
 
-<<<<<<< HEAD
-  @mixin calc-grid-column($index, $class, $type) {
-    @if ($type == width) and ($index > 0) {
-      .col-#{$class}-#{$index} {
-        -ms-flex-preferred-size: percentage(($index / $grid-columns));
-        -webkit-flex-basis: percentage(($index / $grid-columns));
-        flex-basis: percentage(($index / $grid-columns));
-        max-width: percentage(($index / $grid-columns));
-      }
-    }
-  }
-  @mixin calc-prop-column($index, $class, $type) {
-    @if ($type == start) and ($index > 0) {
-      .start-#{$class} {
-        -webkit-justify-content: flex-start;
-        -ms-flex-pack: start;
-        justify-content: flex-start;
-        text-align: start;
-      }
-=======
 @mixin calc-grid-column($index, $class, $type) {
   @if ($type == width) and ($index > 0) {
     .col-#{$class}-#{$index} {
@@ -180,7 +160,6 @@
       -webkit-flex-basis: percentage(($index / $grid-columns));
       flex-basis: percentage(($index / $grid-columns));
       max-width: percentage(($index / $grid-columns));
->>>>>>> 06988994c723aac8b65eb560880ce026e35f14a7
     }
   }
 }
@@ -256,9 +235,6 @@
       -webkit-order: 1;
       -ms-flex-order: 1;
       order: 1;
-    }
-    @for $i from 0 through 0 {
-      @include calc-prop-column($i, $class, $type);
     }
   }
 }
