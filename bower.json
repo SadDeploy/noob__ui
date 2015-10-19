@@ -2,8 +2,6 @@
   "name": "asdasd",
   "private": true,
   "dependencies": {
-    "jquery": "~2.1.3",
-    "flexslider": "~2.5.0",
-    "fancybox": "~2.1.5"
+    "jquery": "~2.1.3"
   }
 }
