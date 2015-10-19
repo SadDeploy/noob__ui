@@ -162,6 +162,8 @@
         max-width: percentage(($index / $grid-columns));
       }
     }
+  }
+  @mixin calc-prop-column($index, $class, $type) {
     @if ($type == start) and ($index > 0) {
       .start-#{$class} {
         -webkit-justify-content: flex-start;
@@ -241,6 +243,9 @@
   @mixin loop-grid-columns($columns, $class, $type) {
     @for $i from 0 through $columns {
       @include calc-grid-column($i, $class, $type);
+    }
+    @for $i from 0 through 0 {
+      @include calc-prop-column($i, $class, $type);
     }
   }
 
