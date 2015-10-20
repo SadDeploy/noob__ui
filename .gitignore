@@ -5,6 +5,7 @@ node_modules
 .idea
 dist
 app/styles/main.css
+app/styles/*.map
 app/views/*.html
 .DS_Store
 */.DS_Store
