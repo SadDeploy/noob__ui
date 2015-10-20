@@ -39,16 +39,18 @@
 }
 
 // Generate the extra small columns
-@mixin make-xs-column($columns, $gutter: $grid-gutter-width) {
+@mixin make-column($gutter: $grid-gutter-width) {
   // box-sizing: border-box;
   -webkit-flex: 0 0 auto;
   -ms-flex: 0 0 auto;
   -webkit-box-flex: 0;
   flex: 0 0 auto;
-
   padding-left:  ($gutter / 2)rem;
   padding-right: ($gutter / 2)rem;
+}
 
+// Generate the extra small columns
+@mixin make-xs-column($columns, $gutter: $grid-gutter-width) {
   -ms-flex-preferred-size: percentage(($columns / $grid-columns));
   -webkit-flex-basis: percentage(($columns / $grid-columns));
   flex-basis:  percentage(($columns / $grid-columns));
@@ -57,15 +59,6 @@
 
 // Generate the small columns
 @mixin make-sm-column($columns, $gutter: $grid-gutter-width) {
-  // box-sizing: border-box;
-  -webkit-flex: 0 0 auto;
-  -ms-flex: 0 0 auto;
-  -webkit-box-flex: 0;
-  flex: 0 0 auto;
-
-  padding-left:  ($gutter / 2)rem;
-  padding-right: ($gutter / 2)rem;
-
   @media (min-width: $screen-sm-min) {
     -ms-flex-preferred-size: percentage(($columns / $grid-columns));
     -webkit-flex-basis: percentage(($columns / $grid-columns));
@@ -76,15 +69,6 @@
 
 // Generate the medium columns
 @mixin make-md-column($columns, $gutter: $grid-gutter-width) {
-  // box-sizing: border-box;
-  -webkit-flex: 0 0 auto;
-  -ms-flex: 0 0 auto;
-  -webkit-box-flex: 0;
-  flex: 0 0 auto;
-
-  padding-left:  ($gutter / 2)rem;
-  padding-right: ($gutter / 2)rem;
-
   @media (min-width: $screen-md-min) {
     -ms-flex-preferred-size: percentage(($columns / $grid-columns));
     -webkit-flex-basis: percentage(($columns / $grid-columns));
@@ -95,15 +79,6 @@
 
 // Generate the large columns
 @mixin make-lg-column($columns, $gutter: $grid-gutter-width) {
-  // box-sizing: border-box;
-  -webkit-flex: 0 0 auto;
-  -ms-flex: 0 0 auto;
-  -webkit-box-flex: 0;
-  flex: 0 0 auto;
-
-  padding-left:  ($gutter / 2)rem;
-  padding-right: ($gutter / 2)rem;
-
   @media (min-width: $screen-lg-min) {
     -ms-flex-preferred-size: percentage(($columns / $grid-columns));
     -webkit-flex-basis: percentage(($columns / $grid-columns));
@@ -114,15 +89,6 @@
 
 // Generate the large columns
 @mixin make-xg-column($columns, $gutter: $grid-gutter-width) {
-  // box-sizing: border-box;
-  -webkit-flex: 0 0 auto;
-  -ms-flex: 0 0 auto;
-  -webkit-box-flex: 0;
-  flex: 0 0 auto;
-
-  padding-left:  ($gutter / 2)rem;
-  padding-right: ($gutter / 2)rem;
-
   @media (min-width: $screen-xlg-min) {
     -ms-flex-preferred-size: percentage(($columns / $grid-columns));
     -webkit-flex-basis: percentage(($columns / $grid-columns));
@@ -131,25 +97,10 @@
   }
 }
 
-@mixin make-grid-columns($i: 1, $list: ".col-xs-#{$i}, .col-sm-#{$i}, .col-md-#{$i}, .col-lg-#{$i}") {
-  @for $i from (1 + 1) through $grid-columns {
-    $list: "#{$list}, .col-xs-#{$i}, .col-sm-#{$i}, .col-md-#{$i}, .col-lg-#{$i}";
-  }
-  #{$list} {
-    // box-sizing: border-box;
-    -webkit-flex: 0 0 auto;
-    -ms-flex: 0 0 auto;
-    -webkit-box-flex: 0;
-    flex: 0 0 auto;
-  }
-}
-
 // [converter] This is defined recursively in LESS, but Sass supports real loops
 @mixin float-grid-columns($class, $i: 1, $list: ".col-#{$class}-#{$i}") {
   @for $i from (1 + 1) through $grid-columns {
     $list: "#{$list}, .col-#{$class}-#{$i}";
-  }
-  #{$list} {
   }
 }
 

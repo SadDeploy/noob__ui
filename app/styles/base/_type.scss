@@ -63,45 +63,29 @@ p {
 .text--nowrap         { white-space: nowrap; }
 
 // Responsive alignment
-.text--xs--left   { text-align: left; }
-.text--xs--right  { text-align: right; }
-.text--xs--center { text-align: center; }
 
-@if $use-adaprive == true {
+@if $use-adaptive == true {
   @media (min-width: $screen-sm-min) {
-    .text--sm--left {
-      text-align: left;
-    }
-    .text--sm--right {
-      text-align: right;
-    }
-    .text--sm--center {
-      text-align: center;
-    }
+    .text--xs--left   { text-align: left; }
+    .text--xs--right  { text-align: right; }
+    .text--xs--center { text-align: center; }
   }
-
   @media (min-width: $screen-md-min) {
-    .text--md--left {
-      text-align: left;
-    }
-    .text--md--right {
-      text-align: right;
-    }
-    .text--md--center {
-      text-align: center;
-    }
+    .text--sm--left { text-align: left;}
+    .text--sm--right {text-align: right;}
+    .text--sm--center {text-align: center;}
   }
 
   @media (min-width: $screen-lg-min) {
-    .text--lg--left {
-      text-align: left;
-    }
-    .text--lg--right {
-      text-align: right;
-    }
-    .text--lg--center {
-      text-align: center;
-    }
+    .text--md--left { text-align: left;}
+    .text--md--right { text-align: right;}
+    .text--md--center { text-align: center;}
+  }
+
+  @media (min-width: $screen-xlg-min) {
+    .text--lg--left { text-align: left;}
+    .text--lg--right { text-align: right;}
+    .text--lg--center { text-align: center;}
   }
 }
 
@@ -110,17 +94,13 @@ p {
 .text--uppercase      { text-transform: uppercase; }
 .text--capitalize     { text-transform: capitalize; }
 
-
-@include text-emphasis-variant('.text--primary', $brand-primary);
-
-@include text-emphasis-variant('.text--success', $state-success-text);
-
-@include text-emphasis-variant('.text--info', $state-info-text);
-
-@include text-emphasis-variant('.text--warning', $state-warning-text);
-
-@include text-emphasis-variant('.text--danger', $state-danger-text);
-
+@if $use-color-text == true {
+  @include text-emphasis-variant('.text--primary', $brand-primary);
+  @include text-emphasis-variant('.text--success', $state-success-text);
+  @include text-emphasis-variant('.text--info', $state-info-text);
+  @include text-emphasis-variant('.text--warning', $state-warning-text);
+  @include text-emphasis-variant('.text--danger', $state-danger-text);
+}
 // Lists
 ul,
 ol {

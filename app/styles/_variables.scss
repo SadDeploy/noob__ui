@@ -53,7 +53,8 @@ $font-size-h5:             $base-font-size;
 $font-size-h6:             ceil(($base-font-size * 0.85)); // ~12px
 
 $line-height-base:         1.428571429;
-$line-height-computed:     floor(($base-font-size * $line-height-base)); // ~20px
+$line-height-computed:     floor(($base-font-size * $line-height-base)); // ~22px
+$line-height-computed-half:floor(($base-font-size * $line-height-base) / 2); // ~11px
 
 
 $headings-font-family:     inherit !default;
@@ -63,16 +64,6 @@ $headings-color:           inherit !default;
 
 
 // Grid
-//$grid-breakpoint-xsmall:               540px;
-//$grid-breakpoint-small:                768px;
-//$grid-breakpoint-medium:               992px;
-//$grid-breakpoint-large:                1200px;
-//
-//$grid-area-small:                      750px;
-//$grid-area-medium:                     970px;
-//$grid-area-large:                      1140px;
-
-
 $screen-sm:                   480px;
 $screen-sm-min:               $screen-sm;
 $screen-phone:                $screen-sm-min;
@@ -92,7 +83,6 @@ $screen-xlg-desktop:          $screen-xlg-min;
 
 // Number of columns in the grid system
 $grid-columns:                 12;
-// Padding, to be divided by two and applied to the left and right of all columns
 $grid-gutter-width:            30px;
 
 
@@ -159,9 +149,9 @@ $padding-xs-horizontal:          5px;
 $line-height-large:              1.3333333; // extra decimals for Win 8.1 Chrome
 $line-height-small:              1.5;
 
-$border-radius-base:             4px;
-$border-radius-large:            6px;
-$border-radius-small:            3px;
+$border-radius-base:             0;
+$border-radius-large:            0;
+$border-radius-small:            0;
 
 $btn-border-radius-base:         $border-radius-base;
 $btn-border-radius-large:        $border-radius-large;
@@ -280,6 +270,11 @@ $input-color-placeholder:        #999 !default;
 $input-height-base:              ($line-height-computed + ($padding-base-vertical * 2) + 2) !default;
 $input-height-large:             (ceil($font-size-large * $line-height-large) + ($padding-large-vertical * 2) + 2) !default;
 $input-height-small:             (floor($font-size-small * $line-height-small) + ($padding-small-vertical * 2) + 2) !default;
+
+
+$input-group-addon-bg:           $gray-lighter !default;
+$input-group-addon-border-color: $input-border !default;
+
 
 $state-success-text:             #3c763d !default;
 $state-success-bg:               #dff0d8 !default;

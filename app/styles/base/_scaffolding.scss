@@ -49,3 +49,19 @@ img {
   max-width: 100%;
   height: auto;
 }
+.img--right{
+  float:right;
+  margin-bottom:  $line-height-computed;
+  margin-left: $line-height-computed;
+}
+.img--left{
+  float:left;
+  margin-right: $line-height-computed;
+  margin-bottom: $line-height-computed;
+}
+.img--center{
+  display:block;
+  margin-right:auto;
+  margin-bottom: $line-height-computed;
+  margin-left:auto;
+}

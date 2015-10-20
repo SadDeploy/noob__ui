@@ -5,7 +5,7 @@
 // Container widths
 .container {
   @include container-fixed;
-  @if $use-adaprive == true {
+  @if $use-adaptive == true {
     @media (min-width: $screen-sm-min) {
       width: $container-sm;
     }
@@ -19,8 +19,7 @@
       width: $container-xlg;
     }
   } @else {
-    width: $container-xlg;
-    //min-width: $container-lg;
+    width: $container-lg;
   }
 }
 
@@ -54,13 +53,16 @@
     @include make-row;
   }
 }
+
   // Columns
-  @include make-grid-columns;
+  .col {
+    @include make-column;
+  }
 
   // Extra small grid
   @include make-grid(xs);
 
-@if $use-adaprive == true {
+@if $use-adaptive == true {
   // Small grid
   @media (min-width: $screen-sm-min) {
     @include make-grid(sm);
@@ -74,5 +76,10 @@
   // Large grid
   @media (min-width: $screen-lg-min) {
     @include make-grid(lg);
+  }
+
+  // XLarge grid
+  @media (min-width: $screen-xlg-min) {
+    @include make-grid(xlg);
   }
 }
