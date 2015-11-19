@@ -130,13 +130,13 @@ table {
 }
 
 @if $use-column-table == true {
-  //col and colgroup
-  //<colgroup>
-  //  <col class=t10>
-  //  <col class=t10>
-  //  <col class=t10>
-  //  <col>
-  //</colgroup>
+/* col and colgroup
+  <colgroup>
+    <col class=t10>
+    <col class=t10>
+    <col class=t10>
+    <col>
+  </colgroup>*/
   .t5 {
     width: 5%
   }
