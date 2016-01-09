@@ -3,24 +3,27 @@
 // ------------------------------------
 
 // first of all. Choose your options
-$debug-mode:                              false!default;
-$use-breadcrumb:                          true!default;
-$use-pagination:                          false!default;
-$use-pager:                               false!default;
-$use-btn-group:                           false!default;
-$use-input-group:                         true!default;
-$use-split:                               false!default;
-$use-rules:                               false!default;
-$use-this-or-this:                        false!default;
-$use-has-feedback:                        false!default;
-$use-color-text:                          false!default;
-$use-color-table:                         false!default;
-$use-column-table:                        false!default;
-$use-flexbox:                             false!default;
-$use-adaptive:                            false!default;
+$debug-mode:          false!default;
+$use-breadcrumb:      true!default;
+$use-pagination:      false!default;
+$use-pager:           false!default;
+$use-btn-color:       false!default;
+$use-btn-group:       false!default;
+$use-btn-size:        false!default;
+$use-input-group:     true!default;
+$use-split:           false!default;
+$use-rules:           false!default;
+$use-this-or-this:    false!default;
+$use-has-feedback:    false!default;
+$use-color-text:      false!default;
+$use-table:           true!default;
+$use-color-table:     false!default;
+$use-column-table:    false!default;
+$use-flexbox:         false!default;
+$use-adaptive:        false!default;
 
 // plugins
-$use-animations:                          false!default;
+$use-animations:      false!default;
 
 // Variables
 @import "_variables";
@@ -36,9 +39,6 @@ $use-animations:                          false!default;
 
 // Layout
 @import "layout/glob";
-
-// Pages
-@import "pages/glob";
 
 // Themes
 @import "themes/glob";

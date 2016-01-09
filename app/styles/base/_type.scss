@@ -4,8 +4,6 @@
 
 
 // Headings
-// -------------------------
-
 h1, h2, h3, h4, h5, h6 {
   font-family: $headings-font-family;
   font-weight: $headings-font-weight;
@@ -48,12 +46,13 @@ h6 { font-size: $font-size-h6; }
 
 
 // Body text
-// -------------------------
-
 p {
   margin: 0 0 ($line-height-computed / 2);
 }
 
+b {
+  font-weight: 500;
+}
 
 // Alignment
 .text--left           { text-align: left; }
@@ -62,45 +61,56 @@ p {
 .text--justify        { text-align: justify; }
 .text--nowrap         { white-space: nowrap; }
 
-// Responsive alignment
 
+// Responsive alignment
 @if $use-adaptive == true {
   @media (min-width: $screen-sm-min) {
-    .text--xs--left   { text-align: left; }
-    .text--xs--right  { text-align: right; }
-    .text--xs--center { text-align: center; }
+    .text--sm--left   { text-align: left; }
+    .text--sm--right  { text-align: right; }
+    .text--sm--center { text-align: center; }
   }
   @media (min-width: $screen-md-min) {
-    .text--sm--left { text-align: left;}
-    .text--sm--right {text-align: right;}
-    .text--sm--center {text-align: center;}
+    .text--md--left { text-align: left;}
+    .text--md--right {text-align: right;}
+    .text--md--center {text-align: center;}
   }
 
   @media (min-width: $screen-lg-min) {
-    .text--md--left { text-align: left;}
-    .text--md--right { text-align: right;}
-    .text--md--center { text-align: center;}
-  }
-
-  @media (min-width: $screen-xlg-min) {
     .text--lg--left { text-align: left;}
     .text--lg--right { text-align: right;}
     .text--lg--center { text-align: center;}
   }
+
+  @media (min-width: $screen-xlg-min) {
+    .text--xlg--left { text-align: left;}
+    .text--xlg--right { text-align: right;}
+    .text--xlg--center { text-align: center;}
+  }
 }
+
 
 // Transformation
 .text--lowercase      { text-transform: lowercase; }
 .text--uppercase      { text-transform: uppercase; }
 .text--capitalize     { text-transform: capitalize; }
 
+
+// Text size
+.text--sm { font-size: $font-size-small; }
+.text--md { font-size: $font-size-medium; }
+.text--lg { font-size: $font-size-large; }
+
+
 @if $use-color-text == true {
+  // Color text
   @include text-emphasis-variant('.text--primary', $brand-primary);
   @include text-emphasis-variant('.text--success', $state-success-text);
   @include text-emphasis-variant('.text--info', $state-info-text);
   @include text-emphasis-variant('.text--warning', $state-warning-text);
   @include text-emphasis-variant('.text--danger', $state-danger-text);
 }
+
+
 // Lists
 ul,
 ol {

@@ -7,6 +7,8 @@ var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var postcss = require('gulp-postcss');
 var plumber = require('gulp-plumber');
+var replace = require('gulp-replace');
+var csscomb = require('gulp-csscomb');
 
 var autoprefixer = require('autoprefixer');
 
@@ -18,13 +20,14 @@ var handleError = require('./../utils/handleError.js');
 
 gulp.task('styles', 'Compile Sass to CSS', function () {
   return gulp.src(config.styles.src)
-    //.pipe(sourcemaps.init())
+    .pipe(sourcemaps.init())
     .pipe(sass(config.styles.sassCfg))
     .on('error', handleError)
     .pipe(postcss([
       autoprefixer(config.styles.autoprefixerCfg)
     ]))
-    //.pipe(sourcemaps.write())
+    .pipe(csscomb())
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest(config.styles.dest))
     .pipe(reload({stream:true}));
 }); 

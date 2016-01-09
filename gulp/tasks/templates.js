@@ -50,7 +50,7 @@ gulp.task('useref', 'Bundle CSS and JS based on build tags and copy to `dist/` f
     var assets = useref.assets(config.useref.assetsCfg);
     
     var jadeFilesOnly = filter(['**/*.jade'], {restore: true});
-    var excludeJade = filter(['**','!**/*.jade'], {restore: true});
+    var excludeJade = filter(['**','!**/*.jade']);
     
     return gulp.src(config.useref.src)
       .pipe(assets)
@@ -65,7 +65,7 @@ gulp.task('useref', 'Bundle CSS and JS based on build tags and copy to `dist/` f
       .pipe(jadeFilesOnly.restore)
       .pipe(excludeJade)
       .pipe(gulp.dest(config.useref.dest))
-      .pipe(gulpif(config.cacheBust, rev.manifest(config.useref.revManifestCfg))) // create rev-manifest.json
+      .pipe(gulpif(config.cacheBust, rev.manifest(config.useref.revManifestCfg))) // create rev-manifest.json 
       .pipe(gulp.dest(config.useref.dest));
   } else {
     return;

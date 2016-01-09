@@ -32,12 +32,10 @@
 }
 
 /* box shadow */
-@mixin box-shadow($x: 2px, $y: 2px, $blur: 5px, $color: rgba(0,0,0,.4), $inset: "") {
-  @if ($inset != "") {
-    @include css3-prefix('box-shadow', $inset $x $y $blur $color);
-  } @else {
-    @include css3-prefix('box-shadow', $x $y $blur $color);
-  }
+@mixin box-shadow($shadow...) {
+  -webkit-box-shadow: $shadow;
+  -moz-box-shadow: $shadow;
+  box-shadow: $shadow;
 }
 
 /* text shadow */
@@ -53,7 +51,11 @@
 
 /* border radius */
 @mixin border-radius($radius: 5px) {
-  @include css3-prefix('border-radius', $radius);
+  //@include css3-prefix('border-radius', $radius);
+  -webkit-border-radius: $radius;
+  -o-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
 }
 
 
@@ -111,4 +113,20 @@
 /* animation */
 @mixin animation($str) {
   @include css3-prefix('animation', $str);
+}
+
+/* Responsive utilities */
+@mixin responsive-visibility($parent) {
+  #{$parent} {
+    display: block !important;
+  }
+  table#{$parent}  { display: table !important; }
+  tr#{$parent}     { display: table-row !important; }
+  th#{$parent},
+  td#{$parent}     { display: table-cell !important; }
+}
+@mixin responsive-invisibility($parent) {
+  #{$parent} {
+    display: none !important;
+  }
 }

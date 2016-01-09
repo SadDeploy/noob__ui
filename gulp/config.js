@@ -95,7 +95,9 @@ module.exports.clean = [tmp, dist];
 
 // Copy fonts task config
 module.exports.copyFonts = {
-  src: path.join(app, fonts, '**/*'),
+  src: [
+    path.join(app, fonts, '**/*'), 'bower_components/bootstrap-sass/assets/fonts/bootstrap/*'
+  ],
   dest: dist + '/fonts'
 };
 
@@ -166,7 +168,7 @@ module.exports.styles = {
   src: path.join(app, styles, '*.scss'),
   dest: path.join(tmp,styles),
   sassCfg: {}, 
-  autoprefixerCfg: {browsers: ['last 2 version']}
+  autoprefixerCfg: {browsers: ['> 0.01%', 'IE 7']}
 };
 
 // Templates task config

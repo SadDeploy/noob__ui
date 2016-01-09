@@ -4,9 +4,6 @@
 
 
 // Floats
-.clearfix {
-  @include clearfix;
-}
 .center-block {
   @include center-block;
 }
@@ -17,6 +14,27 @@
   float: left !important;
 }
 
+
+@if $use-adaptive == true {
+  @media (min-width: $screen-sm-min) {
+    .pull--sm--left   { float: left; }
+    .pull--sm--right  { float: right; }
+  }
+  @media (min-width: $screen-md-min) {
+    .pull--md--left   { float: left; }
+    .pull--md--right  { float: right; }
+  }
+
+  @media (min-width: $screen-lg-min) {
+    .pull--lg--left   { float: left; }
+    .pull--lg--right  { float: right; }
+  }
+
+  @media (min-width: $screen-xlg-min) {
+    .pull--xlg--left   { float: left; }
+    .pull--xlg--right  { float: right; }
+  }
+}
 
 // Toggling content
 .hide {
@@ -30,10 +48,4 @@
 }
 .text-hide {
   @include text-hide;
-}
-
-
-// Hide from screenreaders and browsers
-.hidden {
-  display: none !important;
 }

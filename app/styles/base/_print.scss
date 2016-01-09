@@ -27,7 +27,6 @@
   }
 
   // Don't show links that are fragment identifiers,
-  // or use the `javascript:` pseudo protocol
   a[href^="#"]:after,
   a[href^="javascript:"]:after {
     content: "";
@@ -40,7 +39,6 @@
   }
 
   // Printing Tables:
-  // http://css-discuss.incutio.com/wiki/Printing_Tables
   thead {
     display: table-header-group;
   }
@@ -65,4 +63,6 @@
   h3 {
     page-break-after: avoid;
   }
+  @include responsive-invisibility('.hidden--print');
 }
+
