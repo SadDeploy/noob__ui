@@ -92,10 +92,46 @@ th {
   //
   // Reset default table behavior
 
+<<<<<<< HEAD
   table col[class*="col-"] {
     position: static; // Prevent border hiding in Firefox and IE9-11 (see https://github.com/twbs/bootstrap/issues/11623)
     float: none;
     display: table-column;
+=======
+@if $use-column-table == true {
+/* col and colgroup
+  <colgroup>
+    <col class=t10>
+    <col class=t10>
+    <col class=t10>
+    <col>
+  </colgroup>*/
+  .t5 {
+    width: 5%
+  }
+  .t10 {
+    width: 10%
+  }
+  .t12 {
+    width: 12.5%
+  }
+  /* 1/8 */
+  .t15 {
+    width: 15%
+  }
+  .t20 {
+    width: 20%
+  }
+  .t25 {
+    width: 25%
+  }
+  /* 1/4 */
+  .t30 {
+    width: 30%
+  }
+  .t33 {
+    width: 33.333%
+>>>>>>> ceb5eee89b0c8161ab5020361d5754f816925802
   }
   table {
     td,
