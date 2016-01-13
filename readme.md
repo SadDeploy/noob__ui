@@ -1,6 +1,6 @@
 # Noob__ui
 
-> This is basic template 
+> It's a basic template 
 
 ## How to install
 
