@@ -261,5 +261,5 @@ th {
       @include table-row-variant('warning', $state-warning-bg);
       @include table-row-variant('danger', $state-danger-bg);
     }
-  } 
+  }
 }
