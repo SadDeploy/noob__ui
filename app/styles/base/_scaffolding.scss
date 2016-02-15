@@ -11,6 +11,10 @@
   }
 }
 
+input,
+textarea {
+  outline:none;
+}
 
 .clearfix {
   @include clearfix();
@@ -18,7 +22,6 @@
 
 // HTML
 html {
-  font-size: 10px;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
