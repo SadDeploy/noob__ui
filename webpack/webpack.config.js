@@ -7,6 +7,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const globImporter = require('node-sass-glob-importer');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
 
 // Files
 const utils = require('./utils')
@@ -28,6 +29,7 @@ module.exports = env => {
     devServer: {
       contentBase: path.resolve(__dirname, '../src'),
     },
+    devtool: (env.NODE_ENV === 'development') ? 'inline-source-map' : false,
     resolve: {
       extensions: ['.js'],
       alias: {
@@ -37,6 +39,11 @@ module.exports = env => {
       }
     },
 
+    performance: {
+      hints: false,
+      maxEntrypointSize: 512000,
+      maxAssetSize: 512000
+    },
     /*
       Loaders with configurations
     */
@@ -142,8 +149,12 @@ module.exports = env => {
         { from: '../manifest.json', to: 'manifest.json' },
         { from: '../browserconfig.xml', to: 'browserconfig.xml' },
         { from: 'assets/images/favicons/android-chrome-192x192.png', to: 'assets/images/android-chrome-192x192.png' },
-        { from: 'assets/images/favicons/mstile-150x150.png', to: 'assets/images/mstile-150x150.png' }
+        { from: 'assets/images/favicons/favicon.ico', to: '' },
+        { from: 'assets/images', to: 'assets/images' }
       ]),
+      new SVGSpritemapPlugin('sprites/**/*.svg', {
+        styles: path.join(__dirname, '../src/assets/styles/_sprites.scss')
+      }),
       new MiniCssExtractPlugin({
         filename: 'assets/css/[name].[hash:7].bundle.css',
         chunkFilename: '[id].css',
@@ -152,7 +163,6 @@ module.exports = env => {
       /*
         Pages
       */
-
       // // Desktop page
       new HtmlWebpackPlugin({
         filename: 'index.html',
@@ -169,7 +179,7 @@ module.exports = env => {
         'window.jQuery': 'jquery'
       }),
       new WebpackNotifierPlugin({
-        title: 'Your project'
+        title: 'Noob__ui'
       })
     ]
   }

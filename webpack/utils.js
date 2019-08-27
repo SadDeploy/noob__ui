@@ -13,7 +13,6 @@ exports.pages = function (env, folder = '') {
 
     const viewName = view.split('.')[0];
     let fileName;
-
     if (env === 'development') {
       fileName = folder === '' ? `${viewName}/index.html` : `${folder}/${viewName}/index.html`;
     } else {

@@ -5,10 +5,15 @@
 //svg-icons
 $items:
   facebook,
-  twitter, 
+  twitter,
   percent_icon
 ;
-.is-icons {
+
+.sprite-bg {
+  @include sprite('facebook');
+}
+
+.sprite {
   display: inline-block;
   &:before {
     content: '';
@@ -16,52 +21,15 @@ $items:
   }
   @each $item in $items {
     &--#{$item} {
-      &:before {@include sprite($item);}
+      &:before {
+        width: map-get(map-get($sizes, $item), 'width');
+        height: map-get(map-get($sizes, $item), 'height');
+        background: url(map-get($sprites, $item)) center no-repeat;
+      }
     }
   }
 }
 //svg-icons
-
-// slider
-.slick-slide {
-  position: relative;
-}
-.slick-center {
-  position: relative;
-  &::before {
-    content: '';
-    position: absolute;
-    top: -50px;
-    z-index: 10;
-    border-style: solid;
-    border-width: 0 9.5px 10px 9.5px;
-    border-color: transparent transparent #374355 transparent;
-
-  }
-}
-.slick-prev, .slick-next {
-  width: 48px;
-  height: 48px;
-  background-color: rgba(55, 67, 85, 0.7);
-  border: 2px solid white;
-  z-index: 9;
-  @include border-radius(50%);
-  &::before {
-    content: '';
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-}
-.slick-prev {
-  left: 40px;
-  &::before { background: url("../images/icons/iconArrPr.png") center center no-repeat, transparent; }
-}
-.slick-next {
-  right: 40px;
-  &::before { background: url("../images/icons/iconArrNext.png") center center no-repeat, transparent; }
-}
-//slider
 
 //select
 .select2-container--default .select2-selection--single {

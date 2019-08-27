@@ -80,7 +80,7 @@ $use-bem:                      false!default;
 $use-animations:               false!default;
 $debug-mode:                   false!default;
 
-
+@import "_sprites";
 
 // Color scheme
 @import "themes/_scheme-default";
