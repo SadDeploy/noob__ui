@@ -1,0 +1,16 @@
+extends ./layouts/master.pug
+
+block title
+  title My Page - Home
+
+block pageName
+  - var pageName = "index"
+
+block header
+  include partials/_header.pug
+
+block content
+  <div class='container'>Тестовая страница</div>
+
+block footer
+  include partials/_footer.pug

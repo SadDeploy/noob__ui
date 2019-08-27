@@ -1,0 +1,28 @@
+//
+// Partials -> Main
+// ------------------------------------
+
+@if $use-adaptive == false {
+  header, main, footer {
+    min-width: $container-xl;
+  }
+}
+
+//
+// Main container
+//
+.page-main {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+
+//tempaltes
+.text-template {
+  padding: 20px 0;
+}
+.dark-template {
+  padding: 20px 0;
+  background-color: $base-color-darken;
+}
+//tempaltes
