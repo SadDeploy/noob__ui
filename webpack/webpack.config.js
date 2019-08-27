@@ -55,7 +55,7 @@ module.exports = env => {
         {
           test: /\.css$/,
           use: [
-            env === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
+            env.NODE_ENV === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
             {
               loader: 'css-loader',
               options: {
@@ -68,7 +68,7 @@ module.exports = env => {
         {
           test: /\.scss$/,
           use: [
-            env === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
+            env.NODE_ENV === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
             { loader: 'css-loader', options: { importLoaders: 1, sourceMap: true } },
             'postcss-loader',
             {
@@ -160,7 +160,7 @@ module.exports = env => {
         inject: true
       }),
 
-      ...utils.pages(env),
+      ...utils.pages(env.NODE_ENV),
 
       new webpack.ProvidePlugin({
         $: 'jquery',
