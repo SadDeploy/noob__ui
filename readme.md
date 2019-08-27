@@ -12,12 +12,12 @@ Prerequisites:
 Installation process:
 
 1. Clone this repository
-2. Run ```yarn install``` to install dependencies
+2. Run ```npm install``` to install dependencies
 
 ## Usage
 
 ```
-Use folder src/sprites/ to build svg-sprites
+Use folder sprites/ to build svg-sprites
 ```
 
 For project development with livereload run:
