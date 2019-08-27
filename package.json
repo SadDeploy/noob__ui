@@ -1,9 +1,9 @@
 {
   "name": "noob-ui",
   "version": "2.0.0",
-  "description": "Framework noob-ui",
+  "description": "Framework noob__ui",
   "main": "app.js",
-  "repository": "git+https://github.com/SadDeploy/noob-ui.git",
+  "repository": "git+https://github.com/ViralLka/noob-ui.git",
   "keywords": [
     "framework",
     "webpack",
@@ -11,12 +11,12 @@
     "pug",
     "scss"
   ],
-  "author": "SadDeploy",
+  "author": "ViralLka",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/SadDeploy/noob-ui/issues"
+    "url": "https://github.com/ViralLka/noob-ui/issues"
   },
-  "homepage": "https://github.com/SadDeploy/noob-ui#readme",
+  "homepage": "https://github.com/ViralLka/noob-ui#readme",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf dist && webpack --config webpack/webpack.config.js --env.NODE_ENV=production --mode=production -p --progress",
