@@ -1,48 +1,31 @@
-# Noob__ui
+# Noob-ui
 
-> It's a basic template 
+> It's front-end template using pug/scss/webpack
 
 ## How to install
 
 Prerequisites:
-* [Node.js](http://nodejs.org/) 
-* [Bower](http://bower.io/) 
+* [Node.js](http://nodejs.org/)
+* or
+* [Yarn](https://yarnpkg.com/)
 
 Installation process:
 
 1. Clone this repository
-2. Run ```npm i``` to install dependencies
-3. Run ```bower i``` to install front-end dependencies
+2. Run ```yarn install``` to install dependencies
 
 ## Usage
 
+```
+Use folder src/sprites/ to build svg-sprites
+```
+
 For project development with livereload run:
 ```
-gulp serve
+npm run dev
 ```
 
 To build project run: (Result will be in ```dist/``` folder.)
 ```
-gulp build [--force] 
+npm run build
 ```
-
-## Structure
-Scss folder(styles/)
-
-1. base/        —   global styles (type, reset etc...)
-2. components/  —   styles for components (nav, paginator, breadcrumbs etc...)
-3. layout/      —   main components for project (header, footer)
-5. themes/      —   styles for custom themes
-6. utils/       —   mixins and functons
-7. vendors/     —   style plug-ins
-main.scss       —   end file
-
-Jade folder (views/)
-
-1. data/        —   data type .json
-2. layouts/     —   the template wrappers
-4. modules/     —   the most used modules (footer, sidebar, header, pager etc...)
-5. mixins/      —   mixins and functons
-index.jade      —   index.html
-
-This framework #noob__ui based on (generator-lb)
