@@ -1,7 +1,7 @@
 extends ./layouts/master.pug
 
 block title
-  title My Page - Home
+  title Title
 
 block pageName
   - var pageName = "index"
@@ -10,7 +10,8 @@ block header
   include partials/_header.pug
 
 block content
-  <div class='container'>Тестовая страница</div>
+  div.container
+    | Тестовая страница
 
 block footer
   include partials/_footer.pug

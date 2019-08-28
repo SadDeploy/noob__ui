@@ -10,8 +10,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
 
 // Files
-const utils = require('./utils')
-const plugins = require('../postcss.config');
+const utils = require('./utils');
+// const plugins = require('../postcss.config');
 
 // Configuration
 module.exports = env => {
@@ -50,12 +50,16 @@ module.exports = env => {
     module: {
       rules: [
         {
+          test: /\.json$/,
+          loader: 'json-loader'
+        },
+        {
           test: /\.js$/,
           exclude: [/node_modules/],
           use: [
             {
               loader: 'babel-loader',
-              options: { presets: ['@babel/preset-env'] }
+              options: {presets: ['@babel/preset-env']}
             }
           ]
         },
@@ -76,7 +80,7 @@ module.exports = env => {
           test: /\.scss$/,
           use: [
             env.NODE_ENV === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
-            { loader: 'css-loader', options: { importLoaders: 1, sourceMap: true } },
+            {loader: 'css-loader', options: {importLoaders: 1, sourceMap: true}},
             'postcss-loader',
             {
               loader: 'sass-loader',
@@ -91,6 +95,20 @@ module.exports = env => {
           use: [
             {
               loader: 'pug-loader'
+            }
+          ]
+        },
+        {
+          test: /\.pug$/,
+          use: [
+            {
+              loader: 'pug-html-loader',
+              options: {
+                data: {
+                  menu: require('../src/views/data/menu.json'),
+                  index: require('../src/views/data/index.json'),
+                }
+              }
             }
           ]
         },
@@ -146,11 +164,11 @@ module.exports = env => {
 
     plugins: [
       new CopyWebpackPlugin([
-        { from: '../manifest.json', to: 'manifest.json' },
-        { from: '../browserconfig.xml', to: 'browserconfig.xml' },
-        { from: 'assets/images/favicons/android-chrome-192x192.png', to: 'assets/images/android-chrome-192x192.png' },
-        { from: 'assets/images/favicons/favicon.ico', to: '' },
-        { from: 'assets/images', to: 'assets/images' }
+        {from: '../manifest.json', to: 'manifest.json'},
+        {from: '../browserconfig.xml', to: 'browserconfig.xml'},
+        {from: 'assets/images/favicons/android-chrome-192x192.png', to: 'assets/images/android-chrome-192x192.png'},
+        {from: 'assets/images/favicons/favicon.ico', to: ''},
+        {from: 'assets/images', to: 'assets/images'},
       ]),
       new SVGSpritemapPlugin('sprites/**/*.svg', {
         styles: path.join(__dirname, '../src/assets/styles/_sprites.scss')
@@ -167,7 +185,7 @@ module.exports = env => {
       new HtmlWebpackPlugin({
         filename: 'index.html',
         template: 'views/index.pug',
-        inject: true
+        inject: true,
       }),
 
       ...utils.pages(env.NODE_ENV),

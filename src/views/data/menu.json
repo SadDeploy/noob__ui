@@ -1,28 +1,26 @@
-{
-  "navigation" : {
-    "Index": {
-      "title": "Index",
-      "href": "/",
-      "subitems": false
-    },
-    "Catalog" : {
-      "title": "Catalog",
-      "href": "#",
-      "subitems": {
-        "Catalog item 1": {
-          "title" : "Catalog item 1",
-          "href" : "#"
-        },
-        "Catalog item 2": {
-          "title" : "Catalog item 2",
-          "href" : "#"
-        }
+[
+  {
+    "title": "Index",
+    "href": "/",
+    "subitems": false
+  },
+  {
+    "title": "Catalog",
+    "href": "#",
+    "subitems": {
+      "Catalog item 1": {
+        "title": "Catalog item 1",
+        "href": "#"
+      },
+      "Catalog item 2": {
+        "title": "Catalog item 2",
+        "href": "#"
       }
-    },
-    "About" : {
-      "title": "About",
-      "href": "#",
-      "subitems": false
     }
+  },
+  {
+    "title": "About",
+    "href": "#",
+    "subitems": false
   }
-}
+]

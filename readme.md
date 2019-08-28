@@ -16,8 +16,14 @@ Installation process:
 
 ## Usage
 
+Svg sprites:
 ```
 Use folder sprites/ to build svg-sprites
+```
+
+JSON:
+```
+Add to the webpack config JSON files from the folder data/ to use json in your project. 
 ```
 
 For project development with livereload run:
