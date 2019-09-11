@@ -8,7 +8,7 @@
 }
 
 // Row
-.is-row {
+.row {
   @include make-row;
 
   // only for flexbox
@@ -19,13 +19,13 @@
   }
 }
 @if $use-flexbox == true {
-  .is-col.reverse {
+  .col.reverse {
     flex-direction: column-reverse;
   }
 }
 
 // Columns
-.is-col {
+.col {
   @include make-column;
 }
 

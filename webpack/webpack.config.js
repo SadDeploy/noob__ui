@@ -1,5 +1,6 @@
 // Libraries
 const path = require('path');
+const glob = require('glob');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
@@ -10,9 +11,13 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const imageminMozjpeg = require('imagemin-mozjpeg');
+const PurgecssPlugin = require('purgecss-webpack-plugin');
 
 // Files
 const utils = require('./utils');
+const PATHS = {
+  src: path.join(__dirname, '../src')
+};
 // const plugins = require('../postcss.config');
 
 // Configuration
@@ -25,7 +30,7 @@ module.exports = env => {
     output: {
       path: path.resolve(__dirname, '../dist'),
       publicPath: '/',
-      filename: 'assets/js/[name].[hash:7].bundle.js'
+      filename: 'assets/[name].[hash:7].bundle.js'
     },
     devServer: {
       contentBase: path.resolve(__dirname, '../src'),
@@ -150,7 +155,7 @@ module.exports = env => {
           vendors: false,
           // vendor chunk
           vendor: {
-            filename: 'assets/js/vendor.[hash:7].bundle.js',
+            filename: 'assets/vendor.[hash:7].bundle.js',
             // sync + async chunks
             chunks: 'all',
             // import file path containing node_modules
@@ -190,7 +195,7 @@ module.exports = env => {
         styles: path.join(__dirname, '../src/assets/styles/_sprites.scss')
       }),
       new MiniCssExtractPlugin({
-        filename: 'assets/css/[name].[hash:7].bundle.css',
+        filename: 'assets/[name].[hash:7].bundle.css',
         chunkFilename: '[id].css',
       }),
 
@@ -211,6 +216,10 @@ module.exports = env => {
         jQuery: 'jquery',
         'window.$': 'jquery',
         'window.jQuery': 'jquery'
+      }),
+
+      new PurgecssPlugin({
+        paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true })
       }),
       new WebpackNotifierPlugin({
         title: 'Noob__ui'
