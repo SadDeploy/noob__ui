@@ -8,6 +8,8 @@ const TerserPlugin = require('terser-webpack-plugin');
 const globImporter = require('node-sass-glob-importer');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
+const imageminMozjpeg = require('imagemin-mozjpeg');
 
 // Files
 const utils = require('./utils');
@@ -15,7 +17,6 @@ const utils = require('./utils');
 
 // Configuration
 module.exports = env => {
-
   return {
     context: path.resolve(__dirname, '../src'),
     entry: {
@@ -29,7 +30,7 @@ module.exports = env => {
     devServer: {
       contentBase: path.resolve(__dirname, '../src'),
     },
-    devtool: (env.NODE_ENV === 'development') ? 'inline-source-map' : false,
+    devtool: (env.NODE_ENV === 'development') ? 'source-map' : false,
     resolve: {
       extensions: ['.js'],
       alias: {
@@ -92,15 +93,8 @@ module.exports = env => {
         },
         {
           test: /\.pug$/,
-          use: [
-            {
-              loader: 'pug-loader'
-            }
-          ]
-        },
-        {
-          test: /\.pug$/,
-          use: [
+          loaders: [
+            'pug-loader',
             {
               loader: 'pug-html-loader',
               options: {
@@ -114,11 +108,15 @@ module.exports = env => {
         },
         {
           test: /\.(png|jpe?g|gif|svg|ico)(\?.*)?$/,
-          loader: 'url-loader',
-          options: {
-            limit: 3000,
-            name: 'assets/images/[name].[hash:7].[ext]'
-          }
+          loaders: [
+            {
+              loader: 'url-loader',
+              options: {
+                limit: 3000,
+                name: 'assets/images/[name].[hash:7].[ext]'
+              }
+            }
+          ]
         },
         {
           test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
@@ -157,6 +155,12 @@ module.exports = env => {
             chunks: 'all',
             // import file path containing node_modules
             test: /node_modules/
+          },
+          styles: {
+            name: 'styles',
+            test: /\.css$/,
+            chunks: 'all',
+            enforce: true
           }
         }
       }
@@ -170,6 +174,18 @@ module.exports = env => {
         {from: 'assets/images/favicons/favicon.ico', to: ''},
         {from: 'assets/images', to: 'assets/images'},
       ]),
+      new ImageminPlugin({
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        pngquant: {
+          quality: '80'
+        },
+        plugins: [
+          imageminMozjpeg({
+            quality: 90,
+            progressive: true
+          })
+        ]
+      }),
       new SVGSpritemapPlugin('sprites/**/*.svg', {
         styles: path.join(__dirname, '../src/assets/styles/_sprites.scss')
       }),
@@ -198,7 +214,7 @@ module.exports = env => {
       }),
       new WebpackNotifierPlugin({
         title: 'Noob__ui'
-      })
+      }),
     ]
   }
 };
