@@ -3,6 +3,7 @@ node_modules
 .sass-cache
 .tmp
 .DS_Store
+.cache
 */.DS_Store
 */*/.DS_Store
 dist
