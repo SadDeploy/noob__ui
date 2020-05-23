@@ -2,228 +2,247 @@
 const path = require('path');
 const glob = require('glob');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const globImporter = require('node-sass-glob-importer');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
-const ImageminPlugin = require('imagemin-webpack-plugin').default;
-const imageminMozjpeg = require('imagemin-mozjpeg');
-const PurgecssPlugin = require('purgecss-webpack-plugin');
+const SVGSpriteMapPlugin = require('svg-spritemap-webpack-plugin');
+const ImageMinPlugin = require('imagemin-webpack-plugin').default;
+const ImageMinMozJpeg = require('imagemin-mozjpeg');
+const PurgeCssPlugin = require('purgecss-webpack-plugin');
+const HtmlBeautifyPlugin = require('html-beautify-webpack-plugin');
 
 // Files
 const utils = require('./utils');
 const PATHS = {
-  src: path.join(__dirname, '../src')
+	src: path.join(__dirname, '../src')
 };
-// const plugins = require('../postcss.config');
 
 // Configuration
 module.exports = env => {
-  return {
-    context: path.resolve(__dirname, '../src'),
-    entry: {
-      app: './app.js'
-    },
-    output: {
-      path: path.resolve(__dirname, '../dist'),
-      publicPath: '/',
-      filename: 'assets/[name].[hash:7].bundle.js'
-    },
-    devServer: {
-      contentBase: path.resolve(__dirname, '../src'),
-    },
-    devtool: (env.NODE_ENV === 'development') ? 'source-map' : false,
-    resolve: {
-      extensions: ['.js'],
-      alias: {
-        source: path.resolve(__dirname, '../src'), // Relative path of src
-        images: path.resolve(__dirname, '../src/assets/images'), // Relative path of images
-        fonts: path.resolve(__dirname, '../src/assets/fonts'), // Relative path of fonts
-      }
-    },
+	return {
+		context: path.resolve(__dirname, '../src'),
+		entry: {
+			app: './app.js'
+		},
+		output: {
+			path: path.resolve(__dirname, '../dist'),
+			publicPath: '',
+			filename: 'assets/[name].js'
+		},
+		devServer: {
+			contentBase: path.resolve(__dirname, '../src'),
+			openPage: 'index',
+		},
+		devtool: (env.NODE_ENV === 'development') ? 'source-map' : false,
+		resolve: {
+			modules: [path.resolve(__dirname, '../src'), 'node_modules'],
+			extensions: ['.js', '.css', '.scss'],
+			alias: {
+				Images: path.resolve(__dirname, '../src/assets/images'), // Relative path of images
+				Styles: path.resolve(__dirname, '../src/assets/styles'), // Relative path of styles
+				Scripts: path.resolve(__dirname, '../src/assets/scripts'), // Relative path of scripts
+			}
+		},
 
-    performance: {
-      hints: false,
-      maxEntrypointSize: 512000,
-      maxAssetSize: 512000
-    },
-    /*
+		performance: {
+			hints: false,
+			maxEntrypointSize: 512000,
+			maxAssetSize: 512000
+		},
+		/*
       Loaders with configurations
     */
-    module: {
-      rules: [
-        {
-          test: /\.json$/,
-          loader: 'json-loader'
-        },
-        {
-          test: /\.js$/,
-          exclude: [/node_modules/],
-          use: [
-            {
-              loader: 'babel-loader',
-              options: {presets: ['@babel/preset-env']}
-            }
-          ]
-        },
-        {
-          test: /\.css$/,
-          use: [
-            env.NODE_ENV === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
-            {
-              loader: 'css-loader',
-              options: {
-                importLoaders: 1,
-                sourceMap: true
-              },
-            },
-          ],
-        },
-        {
-          test: /\.scss$/,
-          use: [
-            env.NODE_ENV === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
-            {loader: 'css-loader', options: {importLoaders: 1, sourceMap: true}},
-            'postcss-loader',
-            {
-              loader: 'sass-loader',
-              options: {
-                importer: globImporter()
-              }
-            }
-          ]
-        },
-        {
-          test: /\.pug$/,
-          loaders: [
-            'pug-loader',
-            {
-              loader: 'pug-html-loader',
-              options: {
-                data: {
-                  menu: require('../src/views/data/menu.json'),
-                  index: require('../src/views/data/index.json'),
-                }
-              }
-            }
-          ]
-        },
-        {
-          test: /\.(png|jpe?g|gif|svg|ico)(\?.*)?$/,
-          loaders: [
-            {
-              loader: 'url-loader',
-              options: {
-                limit: 3000,
-                name: 'assets/images/[name].[hash:7].[ext]'
-              }
-            }
-          ]
-        },
-        {
-          test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-          loader: 'url-loader',
-          options: {
-            limit: 5000,
-            name: 'assets/fonts/[name].[hash:7].[ext]'
-          }
-        },
-        {
-          test: /\.(mp4)(\?.*)?$/,
-          loader: 'url-loader',
-          options: {
-            limit: 10000,
-            name: 'assets/videos/[name].[hash:7].[ext]'
-          }
-        }
-      ]
-    },
-    optimization: {
-      minimizer: [
-        new TerserPlugin({
-          cache: true,
-          parallel: true,
-          sourceMap: true,
-        }),
-      ],
-      splitChunks: {
-        cacheGroups: {
-          default: false,
-          vendors: false,
-          // vendor chunk
-          vendor: {
-            filename: 'assets/vendor.[hash:7].bundle.js',
-            // sync + async chunks
-            chunks: 'all',
-            // import file path containing node_modules
-            test: /node_modules/
-          },
-          styles: {
-            name: 'styles',
-            test: /\.css$/,
-            chunks: 'all',
-            enforce: true
-          }
-        }
-      }
-    },
+		module: {
+			rules: [
+				{
+					test: /\.json$/,
+					loader: 'json-loader'
+				},
+				{
+					test: /\.js$/,
+					exclude: [/node_modules/],
+					use: [
+						{
+							loader: 'babel-loader',
+							options: {presets: ['@babel/preset-env']}
+						}
+					]
+				},
+				{
+					test: /\.css$/,
+					use: [
+						env.NODE_ENV === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
+						{
+							loader: 'css-loader',
+							options: {
+								importLoaders: 1,
+								sourceMap: true
+							},
+						},
+					],
+				},
+				{
+					test: /\.scss$/,
+					use: [
+						env.NODE_ENV === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
+						{loader: 'css-loader', options: {importLoaders: 1, sourceMap: true}},
+						{
+							loader: 'sass-loader',
+							options: {
+								sassOptions: {
+									importer: globImporter()
+								},
+								webpackImporter: true
+							}
+						}
+					]
+				},
+				{
+					test: /\.pug$/,
+					loaders: [
+						'pug-loader',
+						{
+							loader: 'pug-html-loader',
+							options: {
+								data: {
+									menu: require('../src/views/data/menu.json'),
+									index: require('../src/views/data/index.json'),
+								}
+							}
+						}
+					]
+				},
+				{
+					test: /\.(png|jpe?g|gif|svg|ico)(\?.*)?$/,
+					loaders: [
+						{
+							loader: 'url-loader',
+							options: {
+								limit: 3000,
+								name: 'assets/images/[name].[hash:7].[ext]'
+							}
+						}
+					]
+				},
+				{
+					test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+					loader: 'url-loader',
+					options: {
+						limit: 5000,
+						name: 'assets/fonts/[name].[hash:7].[ext]'
+					}
+				},
+				{
+					test: /\.(mp4)(\?.*)?$/,
+					loader: 'url-loader',
+					options: {
+						limit: 10000,
+						name: 'assets/videos/[name].[hash:7].[ext]'
+					}
+				}
+			]
+		},
+		optimization: {
+			minimizer: [
+				new TerserPlugin({
+					cache: true,
+					parallel: true,
+					sourceMap: true,
+				}),
+			],
+			splitChunks: {
+				cacheGroups: {
+					default: false,
+					vendors: false,
+					// vendor chunk
+					vendor: {
+						filename: 'assets/vendor.js',
+						// sync + async chunks
+						chunks: 'all',
+						// import file path containing node_modules
+						test: /node_modules/
+					},
+					styles: {
+						name: 'styles',
+						test: /\.css$/,
+						chunks: 'all',
+						enforce: true
+					}
+				}
+			}
+		},
 
-    plugins: [
-      new CopyWebpackPlugin([
-        {from: '../manifest.json', to: 'manifest.json'},
-        {from: '../browserconfig.xml', to: 'browserconfig.xml'},
-        {from: 'assets/images/favicons/android-chrome-192x192.png', to: 'assets/images/android-chrome-192x192.png'},
-        {from: 'assets/images/favicons/favicon.ico', to: ''},
-        {from: 'assets/images', to: 'assets/images'},
-      ]),
-      new ImageminPlugin({
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        pngquant: {
-          quality: '80'
-        },
-        plugins: [
-          imageminMozjpeg({
-            quality: 90,
-            progressive: true
-          })
-        ]
-      }),
-      new SVGSpritemapPlugin('sprites/**/*.svg', {
-        styles: path.join(__dirname, '../src/assets/styles/_sprites.scss')
-      }),
-      new MiniCssExtractPlugin({
-        filename: 'assets/[name].[hash:7].bundle.css',
-        chunkFilename: '[id].css',
-      }),
+		plugins: [
+			new CopyWebpackPlugin({
+				patterns: [
+					{from: 'assets/images/favicons/favicon.ico', to: 'assets/favicon.ico'},
+					{from: 'assets/images', to: 'assets/images'},
+					{from: 'assets/fonts', to: 'assets/fonts'},
+				]
+			}),
 
-      /*
+			new ImageMinPlugin({
+				cacheFolder: './.cache',
+				test: /\.(jpe?g|png|gif)$/i,
+				pngquant: {
+					quality: '70'
+				},
+				plugins: [
+					ImageMinMozJpeg({
+						quality: 70,
+						progressive: true
+					})
+				]
+			}),
+
+			new SVGSpriteMapPlugin('src/sprites/**/*.svg', {
+				styles: path.join(__dirname, '../src/assets/styles/_sprites.scss'),
+				output: {
+					filename: 'assets/sprite.svg'
+				}
+			}),
+
+			new MiniCssExtractPlugin({
+				filename: '[name].css',
+				chunkFilename: 'vendors.css',
+			}),
+
+			/*
         Pages
       */
-      // // Desktop page
-      new HtmlWebpackPlugin({
-        filename: 'index.html',
-        template: 'views/index.pug',
-        inject: true,
-      }),
+			...utils.pages(env.NODE_ENV),
 
-      ...utils.pages(env.NODE_ENV),
+			new HtmlBeautifyPlugin({
+				config: {
+					html: {
+						end_with_newline: true,
+						indent_size: 2,
+						indent_with_tabs: true,
+						indent_inner_html: true,
+						preserve_newlines: true
+					}
+				}
+			}),
 
-      new webpack.ProvidePlugin({
-        $: 'jquery',
-        jQuery: 'jquery',
-        'window.$': 'jquery',
-        'window.jQuery': 'jquery'
-      }),
+			new webpack.ProvidePlugin({
+				$: 'jquery',
+				jQuery: 'jquery',
+				'window.$': 'jquery',
+				'window.jQuery': 'jquery'
+			}),
 
-      new PurgecssPlugin({
-        paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true })
-      }),
-      new WebpackNotifierPlugin({
-        title: 'Noob__ui'
-      }),
-    ]
-  }
+			new PurgeCssPlugin({
+				paths: glob.sync(`${PATHS.src}/**/*`, {nodir: true}),
+				only: ['app'],
+				whitelistPatterns: [/select2/, /my-mfp/, /swiper/], // add plugin's classes to exclude from purge
+			}),
+
+			new WebpackNotifierPlugin({
+				title: 'Noob__ui',
+				contentImage: path.join(__dirname, '../src/assets/images/logo.png'),
+			}),
+		]
+	};
 };

@@ -1,12 +1,11 @@
 /* src/app.js */
 
 // Styles
-import 'styles/_app.scss';
+import 'Styles/_app.scss';
 
 $(document).ready(() => {
-  console.log('Ready!');
-
-  require('scripts/demo');
+	console.log('Ready!');
+	require('Scripts/demo');
 });
 
 
@@ -15,10 +14,13 @@ $(document).ready(() => {
 // load
 
 // scroll
-$(window).scroll(() => {});
+$(window).scroll(() => {
+});
 // scroll
 
 // mobile sctipts
-const screen_width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-if (screen_width <= 767) {}
+const screenWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+if (screenWidth <= 767) {
+	console.log(screenWidth);
+}
 // mobile sctipts

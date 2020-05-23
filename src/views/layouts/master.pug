@@ -61,16 +61,7 @@ html(lang='en')
     //- Preload fonts
     //link(type='font/woff', href=require('font'), rel='preload', as='font', crossorigin)
 
-    link(rel="shortcut icon", href="favicon.ico")
-
-    //- Title
-    block title
-      title Your project!
-
-    //- Manifest browserconfig files
-    block manifestBrowserconfigFiles
-      link(rel='manifest', href='./manifest.json')
-      meta(name='msapplication-config' content='./browserconfig.xml')
+    link(rel="shortcut icon", href="assets/favicon.ico")
 
     block pageName
       - var pageName = "main"
